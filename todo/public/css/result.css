@@ -1,0 +1,226 @@
+/* ============================================================
+   result.css — Score page + full answer review
+   ============================================================ */
+
+/* ── Hero ───────────────────────────────────────────────── */
+.result-hero {
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+}
+
+.score-ring {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--accent) calc(var(--pct) * 1%),
+        var(--border) 0
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    position: relative;
+}
+
+.score-ring::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+}
+
+.score-num {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-head);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -.04em;
+}
+
+.result-title {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -.03em;
+}
+
+.result-sub {
+    color: var(--muted);
+    margin-top: .3rem;
+}
+
+.result-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.r-badge {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .6rem 1.2rem;
+    font-size: .8rem;
+    color: var(--muted);
+    min-width: 90px;
+}
+
+.r-badge strong {
+    color: var(--text);
+    display: block;
+    font-size: 1.2rem;
+    font-family: var(--font-head);
+    font-weight: 800;
+}
+
+/* ── Review section ─────────────────────────────────────── */
+.review-section {
+    margin-top: 2.5rem;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.review-title {
+    font-family: var(--font-head);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* ── Filter buttons ─────────────────────────────────────── */
+.review-filters {
+    display: flex;
+    gap: .5rem;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: .35rem .9rem;
+    border-radius: 20px;
+    font-size: .78rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all .18s;
+}
+
+.filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+/* ── Review items ───────────────────────────────────────── */
+.review-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.3rem;
+    margin-bottom: .8rem;
+    border-left: 4px solid var(--border);
+    transition: border-color .2s;
+}
+
+.review-item.correct   { border-left-color: var(--success); }
+.review-item.incorrect { border-left-color: var(--danger); }
+
+.review-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .6rem;
+}
+
+.review-num {
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+
+.review-badge {
+    font-size: .72rem;
+    font-weight: 600;
+    padding: .2rem .6rem;
+    border-radius: 4px;
+}
+
+.badge-correct { background: rgba(16,185,129,.15); color: var(--success); }
+.badge-wrong   { background: rgba(239,68,68,.15);  color: var(--danger); }
+
+.review-q {
+    font-size: .92rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: .9rem;
+    color: var(--text);
+}
+
+/* ── Answer rows ────────────────────────────────────────── */
+.review-answers {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.review-ans {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .55rem .9rem;
+    border-radius: 8px;
+    font-size: .85rem;
+    gap: 1rem;
+}
+
+.ans-correct {
+    background: rgba(16, 185, 129, .08);
+    border: 1px solid rgba(16, 185, 129, .25);
+}
+
+.ans-wrong {
+    background: rgba(239, 68, 68, .08);
+    border: 1px solid rgba(239, 68, 68, .25);
+}
+
+.ans-label {
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.ans-text {
+    color: var(--text);
+    text-align: right;
+}
+
+/* ── CTA ────────────────────────────────────────────────── */
+.cta-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    padding-bottom: 2rem;
+}

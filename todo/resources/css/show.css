@@ -1,15 +1,14 @@
 /* ============================================================
-   quiz-show.css — Active quiz page (questions + timer)
+   show.css — Active quiz, one question at a time
    ============================================================ */
 
-/* ── Header ─────────────────────────────────────────────── */
 .quiz-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--border);
 }
@@ -67,43 +66,52 @@
     font-family: var(--font-head);
     font-size: 1.6rem;
     font-weight: 800;
-    letter-spacing: -.02em;
     color: var(--accent2);
     transition: color .3s;
 }
 
-#timer-display.warn {
-    color: var(--danger);
-}
+#timer-display.warn { color: var(--danger); }
 
-/* ── Progress bar ───────────────────────────────────────── */
+/* ── Progress ───────────────────────────────────────────── */
 .progress-bar {
     background: var(--border);
     border-radius: 4px;
-    height: 4px;
-    margin-bottom: 2rem;
+    height: 5px;
     overflow: hidden;
+    margin-bottom: .5rem;
 }
 
 .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
     border-radius: 4px;
-    transition: width .3s ease;
+    transition: width .4s ease;
 }
 
-/* ── Question block ─────────────────────────────────────── */
+.progress-label {
+    text-align: right;
+    font-size: .75rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+}
+
+/* ── Question blocks (hidden by default) ────────────────── */
 .question-block {
+    display: none;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.6rem;
-    margin-bottom: 1.2rem;
-    transition: border-color .18s;
+    border-radius: 16px;
+    padding: 2rem;
+    animation: slideIn .3s ease;
 }
 
-.question-block:focus-within {
-    border-color: rgba(124, 58, 237, .4);
+.question-block.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .q-num {
@@ -112,22 +120,23 @@
     color: var(--accent);
     text-transform: uppercase;
     letter-spacing: .1em;
-    margin-bottom: .5rem;
+    margin-bottom: .6rem;
 }
 
 .q-text {
     font-family: var(--font-head);
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 700;
     line-height: 1.4;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1.5rem;
 }
 
 /* ── Answer options ─────────────────────────────────────── */
 .answers-list {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: .6rem;
+    margin-bottom: 2rem;
 }
 
 .answer-option {
@@ -136,36 +145,36 @@
     gap: .8rem;
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: .7rem 1rem;
+    border-radius: 10px;
+    padding: .85rem 1rem;
     cursor: pointer;
-    transition: background .15s, border-color .15s;
+    transition: background .15s, border-color .15s, transform .15s;
 }
 
 .answer-option:hover {
     background: rgba(124, 58, 237, .07);
     border-color: rgba(124, 58, 237, .3);
+    transform: translateX(3px);
 }
 
-.answer-option input[type="radio"] {
-    display: none;
-}
+.answer-option input[type="radio"] { display: none; }
 
 .answer-option.selected {
     background: rgba(124, 58, 237, .12);
     border-color: var(--accent);
+    transform: translateX(3px);
 }
 
 .radio-dot {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     border: 2px solid var(--muted);
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color .15s;
+    transition: all .15s;
 }
 
 .answer-option.selected .radio-dot {
@@ -175,42 +184,46 @@
 
 .answer-option.selected .radio-dot::after {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     background: #fff;
     border-radius: 50%;
 }
 
-.answer-label {
-    font-size: .9rem;
-}
+.answer-label { font-size: .92rem; }
 
-/* ── Sticky footer ──────────────────────────────────────── */
-.quiz-footer {
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
-    background: rgba(10, 10, 15, .9);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid var(--border);
-    padding: 1rem 0;
-    margin-top: 2rem;
+/* ── Navigation buttons ─────────────────────────────────── */
+.q-nav {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
 }
 
-.answered-count {
-    font-size: .83rem;
+.btn-nav {
+    background: transparent;
+    border: 1px solid var(--border);
     color: var(--muted);
+    padding: .6rem 1.4rem;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: .88rem;
+    cursor: pointer;
+    transition: all .18s;
+}
+
+.btn-nav:hover {
+    border-color: var(--accent);
+    color: var(--text);
 }
 
 .btn-submit {
     background: linear-gradient(135deg, var(--accent), #6d28d9);
     color: #fff;
-    padding: .7rem 2rem;
+    padding: .65rem 1.8rem;
     border-radius: 9px;
-    font-size: .95rem;
+    font-size: .92rem;
     font-weight: 600;
     border: none;
     cursor: pointer;

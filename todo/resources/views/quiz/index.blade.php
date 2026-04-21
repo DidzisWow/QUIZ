@@ -8,29 +8,29 @@
 @section('content')
 
 <div class="page-header">
-    <h1>Your <em>Quizzes</em></h1>
-    <p>Pick a topic and challenge yourself today.</p>
+    <h1>Tavi <em>Quizzes</em></h1>
+    <p>Izvēlies tēmu un izaicini sevi.</p>
 </div>
 
 <div class="stats-row">
     <div class="stat-card">
         <div class="num">{{ $quizzes->count() }}</div>
-        <div class="lbl">Available quizzes</div>
+        <div class="lbl">Piejamie quizzes</div>
     </div>
     <div class="stat-card">
         <div class="num">{{ $categories->count() }}</div>
-        <div class="lbl">Categories</div>
+        <div class="lbl">Katagorijas</div>
     </div>
     <div class="stat-card">
         <div class="num">{{ Auth::user()->quizAttempts()->count() }}</div>
-        <div class="lbl">Your attempts</div>
+        <div class="lbl">Tavi meiģinajumi</div>
     </div>
 </div>
 
 @if($quizzes->isEmpty())
     <div class="empty">
         <div class="icon">📭</div>
-        <p>No quizzes available yet. Check back soon!</p>
+        <p>quizzes vēl nav pieejamas. Pārbaudiet vēlāk!</p>
     </div>
 @else
     <div class="quiz-grid">
@@ -51,11 +51,11 @@
             @endif
 
             <div class="card-meta">
-                <span>📚 {{ $quiz->questions->count() }} questions</span>
+                <span> {{ $quiz->questions->count() }} questions</span>
                 @if($quiz->time_limit)
-                    <span>⏱ {{ $quiz->time_limit / 60 }} min</span>
+                    <span> {{ $quiz->time_limit / 60 }} min</span>
                 @endif
-                <span>🏷 {{ $quiz->category->name }}</span>
+                <span> {{ $quiz->category->name }}</span>
             </div>
 
         </a>

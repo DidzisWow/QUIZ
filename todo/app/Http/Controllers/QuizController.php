@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
-
-
+    // ── Quiz listing ─────────────────────────────────────────
     public function index()
     {
         $quizzes    = Quiz::with('category')
@@ -24,13 +23,28 @@ class QuizController extends Controller
         return view('quiz.index', compact('quizzes', 'categories'));
     }
 
+    // ── Show single quiz (randomized questions & answers) ────
     public function show(Quiz $quiz)
     {
         abort_unless($quiz->is_published, 404);
-        $quiz->load('questions.answers');
+
+        // Load questions filtered strictly by this quiz, in random order
+        $quiz->load(['questions' => function ($query) use ($quiz) {
+            $query->where('quiz_id', $quiz->id)->inRandomOrder();
+        }]);
+
+        // Randomize answers for each question individually
+        foreach ($quiz->questions as $question) {
+            $question->setRelation(
+                'answers',
+                $question->answers()->inRandomOrder()->get()
+            );
+        }
+
         return view('quiz.show', compact('quiz'));
     }
 
+    // ── Submit quiz answers ───────────────────────────────────
     public function submit(Request $request, Quiz $quiz)
     {
         $quiz->load('questions.answers');
@@ -43,12 +57,14 @@ class QuizController extends Controller
         ]);
 
         $score = 0;
+
         foreach ($quiz->questions as $question) {
-            $answerId  = $request->input('q_' . $question->id);
+            $answerId = $request->input('q_' . $question->id);
             if (!$answerId) continue;
 
             $answer    = $question->answers->find($answerId);
             $isCorrect = $answer?->is_correct ?? false;
+
             if ($isCorrect) $score += $question->points;
 
             UserAnswer::create([
@@ -64,10 +80,17 @@ class QuizController extends Controller
         return redirect()->route('quiz.result', $attempt->id);
     }
 
+    // ── Show result ───────────────────────────────────────────
     public function result(QuizAttempt $attempt)
     {
         abort_unless($attempt->user_id === Auth::id(), 403);
-        $attempt->load('quiz', 'userAnswers.question', 'userAnswers.answer');
+
+        $attempt->load([
+            'quiz',
+            'userAnswers.question.answers',
+            'userAnswers.answer',
+        ]);
+
         return view('quiz.result', compact('attempt'));
     }
 }
