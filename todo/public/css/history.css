@@ -1,0 +1,186 @@
+/* ============================================================
+   history.css
+   ============================================================ */
+
+.page-header { margin-bottom: 2rem; }
+
+.page-header h1 {
+    font-family: var(--font-head);
+    font-size: 2.2rem; font-weight: 800;
+    letter-spacing: -.04em; line-height: 1.1;
+}
+
+.page-header h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-header p { color: var(--muted); margin-top: .4rem; }
+
+/* Stats */
+.history-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.h-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+}
+
+.h-stat-num {
+    font-family: var(--font-head);
+    font-size: 2rem; font-weight: 800;
+    letter-spacing: -.04em;
+}
+
+.h-stat-lbl { font-size: .78rem; color: var(--muted); margin-top: .1rem; }
+
+/* History cards */
+.history-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.history-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem;
+    transition: border-color .18s;
+}
+
+.history-card:hover { border-color: rgba(124,58,237,.3); }
+
+.history-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.history-card-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.h-cat-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(124,58,237,.12);
+    display: flex; align-items: center;
+    justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+}
+
+.h-quiz-title {
+    font-family: var(--font-head);
+    font-size: 1.05rem; font-weight: 700;
+    letter-spacing: -.01em;
+}
+
+.h-quiz-meta {
+    display: flex; gap: .5rem; align-items: center;
+    font-size: .78rem; color: var(--muted);
+    margin-top: .25rem; flex-wrap: wrap;
+}
+
+/* Score ring small */
+.history-card-right { text-align: center; flex-shrink: 0; }
+
+.h-score-ring {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--accent) calc(var(--pct) * 1%),
+        var(--border) 0
+    );
+    display: flex; align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto .3rem;
+}
+
+.h-score-ring::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border-radius: 50%;
+    background: var(--surface);
+}
+
+.h-score-num {
+    position: relative; z-index: 1;
+    font-family: var(--font-head);
+    font-size: .85rem; font-weight: 800;
+}
+
+.h-score-label { font-size: .68rem; color: var(--muted); }
+
+/* Card bottom */
+.history-card-bottom {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.h-times { font-size: .83rem; color: var(--muted); }
+.h-times strong { color: var(--text); }
+
+/* Attempt chips */
+.attempt-list {
+    display: flex; gap: .4rem;
+    flex-wrap: wrap; flex: 1;
+}
+
+.attempt-chip {
+    display: flex; align-items: center; gap: .3rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .25rem .6rem;
+    text-decoration: none;
+    font-size: .75rem;
+    transition: border-color .15s;
+}
+
+.attempt-chip:hover { border-color: var(--accent); }
+
+.attempt-pct { font-weight: 700; }
+.pct-good  { color: var(--success); }
+.pct-mid   { color: #f59e0b; }
+.pct-low   { color: var(--danger); }
+.attempt-date { color: var(--muted); }
+
+/* Diff badges */
+.diff-badge {
+    font-size: .68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em;
+    padding: .15rem .45rem; border-radius: 4px;
+}
+.diff-easy   { background: rgba(16,185,129,.15); color: #10b981; }
+.diff-medium { background: rgba(245,158,11,.15);  color: #f59e0b; }
+.diff-hard   { background: rgba(239,68,68,.15);   color: #ef4444; }
+
+.btn-sm { padding: .4rem .9rem; font-size: .8rem; }
+
+/* Empty */
+.empty-history {
+    text-align: center; padding: 4rem 1rem;
+    color: var(--muted);
+}
+.empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+@media (max-width: 600px) {
+    .history-stats { grid-template-columns: 1fr 1fr; }
+    .history-card-top { flex-direction: column; align-items: flex-start; }
+}
